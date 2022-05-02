@@ -39,23 +39,7 @@ conda activate vayu
 
 ### Data
 * JsonL : One line per record in json format exported using following scala script using spark
-```scala
-val cpts = Seq("72148", "74177", "71250", "71260", "70553", "70551")
-for (cpt <- cpts) spark.read.parquet(s"./${cpt}_APR-JUN19_DATASET/*.parquet").select("tokens", "authStatus", "status", "contactMethod", "episodeId", "physicianSpecialty", "patientDOB", "icd9Code", "m1Approved", "m1Eligible").coalesce(1).write.mode("overwrite").json(s"./${cpt}_JSON_APR-JUN19_DATASET")
-```
-* Having metadata columns like `cptCode` and `contactMethod` is helpful if present to export
- `model_info_advanced.json`
-* Above dataset should be used for only training language models but when training classifiers, appropriate data filters
- should be applied in line with following script:
-```scala
-val cpts = Seq("72148", "74177", "71250", "71260", "70553", "70551")
-
-// Train set
-for (cpt <- cpts) spark.read.parquet(s"hdfs://10.205.63.29:9000/hdfs/imageone_first_docs/${cpt}_first_docs/all/datasetOutput/RAW_DATASET/*.parquet").filter(!col("insuranceCarrierName").isin("UNITEDRNP", "EMPIRE") && $"autoApproved" === "False" && $"cdrApproved" === "False" && $"contactMethod" === "WEB" && $"m1Approved" === "False" && $"m1Eligible" === "True").select("tokens", "authStatus", "status", "contactMethod", "episodeId", "physicianSpecialty", "patientDOB", "patientSex", "icd9Code", "pediatric", "authDate").coalesce(1).write.mode("overwrite").json(s"hdfs://10.205.63.29:9000/hdfs/temp_data_remove_post_qed12095/${cpt}/train_json")
-
-// Eval set
-for (cpt <- cpts) spark.read.parquet(s"hdfs://10.205.63.29:9000/hdfs/imageone_eval_nov19-jan20/${cpt}/WEB/datasetOutput/RAW_DATASET/*.parquet").filter(!col("insuranceCarrierName").isin("UNITEDRNP", "EMPIRE") && $"autoApproved" === "False" && $"cdrApproved" === "False" && $"contactMethod" === "WEB" && $"m1Approved" === "False" && $"m1Eligible" === "True").select("tokens", "authStatus", "status", "contactMethod", "episodeId", "physicianSpecialty", "patientDOB", "patientSex", "icd9Code", "pediatric", "authDate").coalesce(1).write.mode("overwrite").json(s"hdfs://10.205.63.29:9000/hdfs/temp_data_remove_post_qed12095/${cpt}/eval_json")
-``` 
+* Having metadata columns like `cptCode` and `contactMethod` is helpful if present to export `model_info_advanced.json`
 * The tokens column is `List[List[str]]` / Doc[sentences] where doc is List[sentence], sentence is `List[str]`
 * Datasets should already be split into train, validation and test in (BIO CoNLL format for NER) for the scripts to
  ingest. `vayu/datasets/train_valid_split.py` can be used to split datasets.
