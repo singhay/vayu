@@ -1,0 +1,28 @@
+name: vayu-env
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pip=20.1.1
+  - pip:
+    - azureml-sdk==1.13.0
+    - pandarallel>=1.4.6
+    - tqdm==4.45.0
+    - numpy==1.18.1
+    - pandas==1.0.3
+    - scikit-learn==0.23.2
+    - torch==1.5.0
+    - transformers==3.0.2
+    - pytorch-nlp>=0.5.0
+    - pytorch-lightning==0.7.6
+    - tensorboard>=2.1.1
+    - gensim>=3.8.3
+    - hydra_core==0.11.3
+    - iso8601
+    - pycparser==2.18
+    - pytest-cov==2.9.0
+    - PyYAML>=5.3.0
+    - reflink>=0.2.0
+    - seqeval>=0.0.12
+    - sphinx>=3.0.4
