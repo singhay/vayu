@@ -1,0 +1,44 @@
+data:
+  tokenizer_class: bpe  # bpe, wordpiece, cdr
+  tokenizer_path: ./vayu/tokenizer/resources/65k_roberta_bpe  # Required for AML mount
+  num_classes: 1  # number of unique labels, set to None if you want this automatically found from train set
+  max_chunks: 200
+  max_chunk_size: 64
+
+  lowercase: false
+  stem: false
+  normalize: true
+  normalization_map:
+    - <int>: '\d{3-10}'
+    - <longnum>: '\d{11+}'
+    - <float>: '[^.0-9]'
+    - <punct>: '[^\w\s]'
+
+  cat_encoding:
+#    icd9Code: '/Users/asingh3/workspace/zod/data/icd10_emb'
+#    icd9Code: 'icd_d300_embedding_aml181_asingh3'
+#  cat_encoding_size: 300
+  cat_encoding_size: 0
+#  cat_encoding_size: 64
+
+  is_lazy: false
+#  train_path: 'cdr_cpt70551_102k_full_docs_train'
+#  train_path: 'cdr_2M_full_docs_train'
+  train_path: 'cdr_cptSix_cmWEBFAX_265krecords_train'
+  valid_path: 'cdr_cptSix_cmWEBFAX_30krecords_valid'
+  test_path: 'cdr_cptSix_cmWEBFAX_12krecords_test'
+#  train_path: 'cdr_cpt70551_cmFAX_11krecords_train'  # 'cdr_cptSix_cmWEBFAX_265krecords_train'
+#  valid_path: 'cdr_cpt70551_cmFAX_11krecords_valid'  # 'cdr_cptSix_cmWEBFAX_30krecords_valid'
+#  test_path: 'cdr_cpt70551_cmFAX_test'  # 'cdr_cptSix_cmWEBFAX_12krecords_test'
+
+  label_smooth: 0.0
+  pct_of_data: 1.0
+
+  sota_val_loss: 0.5288
+
+  active_learning:
+    is_enable: true
+    start_after_epoch: 3
+    add_data_every_n_epoch: 2
+    type: 'entropy'  # random, k-means, entropy, or uncertainty
+    n_clusters: 10  # only applies if type: k-means

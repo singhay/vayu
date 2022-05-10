@@ -1,0 +1,16 @@
+model:
+  type: classification
+  name: transformer_lstm
+  class: vayu.models.classification.transformer.TransformerLSTM
+  params:
+    # Pretrained config name or path if not the same as model_name
+    config_name: ''
+    model_type: 'roberta'
+    model_name_or_path: ''
+    is_train_transformer: false
+
+    rnn_size: 10
+    rnn_bidirectional: true
+    rnn_num_layers: 1
+    rnn_is_enable_bias: true
+    rnn_dropout: 0

@@ -1,0 +1,24 @@
+model:
+  type: classification
+  name: cnn_rnn
+  class: vayu.models.classification.cnn_rnn.CNNRNNNet
+  params:
+    embedding_size: 50  # Dimension of word embedding if pretrained is not provided
+    pretrained_vector_path: ''
+    is_pretrained_vector_fine_tune: false
+    pretrained_vector_fine_tune_learning_rate: .00001
+
+    cnn_kernel_sizes: [3,4,5]
+    cnn_kernel_numbers: [1000, 1000, 1000]
+
+    rnn_type: 'lstm'  # lstm | gru
+    rnn_size: 32  # Number of lstm units for lstm model_type
+    rnn_bidirectional: true  # concatenate both forward and backward states
+    rnn_num_layers: 1  # Number of lstm layers to use
+    rnn_dropout: 0.0  # This only applies if rnn_num_layers > 1
+    is_enable_rnn_bias: true
+
+    fc_middle_layers: []
+    fc_dropout: 0.4
+    fc_activation: gelu
+    is_enable_fc_layer_bias: true

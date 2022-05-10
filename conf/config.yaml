@@ -1,0 +1,46 @@
+defaults:
+  - model: classification/cnn1d_dilation_rnn_sm  # Type of model (boe, cnn.. full list in conf/models)
+  - data: classification
+  - optimizer: adam
+  - lr_scheduler: reduce_lr_on_plateau
+  - training: gpu
+
+# TODO: Each run is put in it's own separate task directory > model_type > train / evaluate
+#  - hydra/run/dir: outputs/${defaults.0.task}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+is_azure_train: true
+pretty_print: true
+seed: 42
+
+do_train: true
+is_calibrate_on_train: true
+is_early_stop: true
+do_eval_pretrained_model: false
+is_export_features: false
+pretrained_model_path: ''
+slack_user_id: 'user_provided_from_environment_variables'
+
+aml:
+  # serviceName_buildVersion_date_dataType_ticketId_username_changeType_metadata_desc
+#  experiment_name: 'cdr_AMLX_asingh3_E_'
+  experiment_name: 'test'
+  experiment_folder: 'experiment_src'
+  registered_env_name: 'vayu-env'  # 'vayu-env', 'cdr-env', 'm0-env'
+  experiment_entry_script: 'main.py'
+  pytorch_version: '1.5'
+  update_environment: false
+  num_nodes: 1
+
+  docker:
+    base_image: 'mcr.microsoft.com/azureml/openmpi3.1.2-cuda10.2-cudnn8-ubuntu18.04'
+
+  # Passed via gitlab CI
+  service_principal:
+    tenant_id: "local"
+    service_principal_id: "local"
+    service_principal_password: "local"
+
+  workspace:
+    subscription_id: 'a0c6645e-c3da-4a78-9ef6-04ab6aad45ff'
+    resource_group: 'pd1_rsg_ml_training'
+    workspace_name: 'ml_training_qpid_data_science'

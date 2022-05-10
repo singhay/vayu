@@ -1,0 +1,8 @@
+lr_scheduler:
+  type: ReduceLROnPlateau
+  params:
+    min_lr: 1e-5
+    factor: 0.5
+    patience: 1
+    cooldown: 0
+    verbose: True

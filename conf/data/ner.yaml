@@ -1,0 +1,20 @@
+data:
+  tokenizer_class: bpe  # bpe, wordpiece, cdr
+  tokenizer_path: ./deep-learning/vayu/tokenizer/resources/65k_roberta_bpe
+  num_classes: 6  # number of unique labels, set to None if you want this automatically found from train set
+  max_chunks: 200
+  max_chunk_size: 64
+
+  lowercase: true
+  stem: false
+  normalize: true
+  normalization_map:
+    - <int>: '\d{3-10}'
+    - <longnum>: '\d{11+}'
+    - <float>: '[^.0-9]'
+    - <punct>: '[^\w\s]'
+
+  is_lazy: false
+  train_path: ./deep-learning/data/72148_10.json
+  val_path: ./deep-learning/data/72148_10.json
+  test_path: ./deep-learning/data/72148_10.json
