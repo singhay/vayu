@@ -1,0 +1,5 @@
+lr_scheduler:
+  type: StepLR
+  params:
+    step_size: 5
+    gamma: 0.05

@@ -1,0 +1,13 @@
+model:
+  type: classification
+  name: cnn_rnn_pretrained
+  class: vayu.models.classification.cnn_rnn.PretrainedCNNRNNNet
+  params:
+    pretrained_model_path: ''
+    is_pretrained_model_fine_tune: false
+    pretrained_model_fine_tune_learning_rate: 0.00001
+
+    fc_middle_layers: []
+    fc_dropout: 0.2
+    fc_activation: gelu
+    is_enable_fc_layer_bias: true

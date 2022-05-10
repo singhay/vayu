@@ -1,0 +1,29 @@
+model:
+  type: classification
+  name: cnn1d_dilation_rnn
+  class: vayu.models.classification.cnn_rnn.CNN1dDilationRNNNet
+  params:
+    embedding_size: 24  # Dimension of word embedding if pretrained is not provided
+    # pretrained embeddings in default AML blobstore at `cdr/vayu_datasets/embeddings`
+    # 'cdr_embedding_cptSix_d64_w5_sg1' 'cdr_embedding_cptSix_d64_w10_sg1_mc5_iter5'
+    # 'cdr_embedding_cptSix_d64_w10_sg0_cbowmean1_mc1_iter5'
+    # 'cdr_embedding_dummy64' 'cdr_embedding_dummy48'
+    pretrained_vector_path: 'cdr_embedding_cptSix_d64_w10_sg1_mc5_iter5'
+    is_pretrained_vector_fine_tune: false
+    pretrained_vector_fine_tune_learning_rate: .00001
+
+    cnn_kernel_sizes:     [3,   4,   5,   3,   5,  3,   5]
+    cnn_kernel_numbers:   [100, 50, 50,   100, 50, 100, 50]
+    cnn_kernel_dilations: [1,   1,   1,   2,   2,  4,   4]
+
+    rnn_type: 'lstm'  # lstm | gru
+    rnn_size: 8  # Number of lstm units for lstm model_type
+    rnn_bidirectional: true  # concatenate both forward and backward states
+    rnn_num_layers: 2  # Number of lstm layers to use
+    rnn_dropout: 0.4  # This only applies if rnn_num_layers > 1
+    is_enable_rnn_bias: true
+
+    fc_middle_layers: [28]
+    fc_dropout: 0.4
+    fc_activation: gelu
+    is_enable_fc_layer_bias: true

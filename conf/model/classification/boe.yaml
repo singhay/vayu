@@ -1,0 +1,7 @@
+model:
+  type: classification
+  name: boe
+  class: vayu.models.classification.bag_of_embedding.BagOfEmbedding
+  params:
+    embedding_size: 100
+    dropout: 0.2

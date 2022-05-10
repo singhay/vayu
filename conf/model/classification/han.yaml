@@ -1,0 +1,22 @@
+model:
+  type: classification
+  name: han
+  class: vayu.models.classification.hierarchical_att_model.HierAttNet
+  params:
+    embedding_size: 5  # Dimension of word embedding if pretrained is not provided
+    pretrained_vector_path: ''
+    is_pretrained_vector_freeze: true
+    # is_pretrained_vector_fine_tune: true
+    # TODO: pretrained_vector_fine_tune_learning_rate: .00001
+
+    sent_rnn_type: 'lstm'  # lstm | gru
+    sent_rnn_bidirectional: true  # concatenate both forward and backward states
+    sent_rnn_size: 5  # Number of lstm units for lstm model_type / Size of sentence attention
+    sent_rnn_num_layers: 1  # Number of lstm layers to use
+
+    doc_rnn_type: 'lstm'  # lstm | gru
+    doc_rnn_bidirectional: true  # concatenate both forward and backward states
+    doc_rnn_size: 5  # Number of lstm units for lstm model_type / Size of document attention
+    doc_rnn_num_layers: 1  # Number of lstm layers to use
+
+    dropout: 0.2

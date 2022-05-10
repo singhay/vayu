@@ -1,0 +1,49 @@
+training:
+    hparams:
+        batch_size: 4
+        num_workers: 0  # n_gpus * 4
+        logit_squeeze: 0.0
+        optimizer: ${optimizer}
+        lr_scheduler: ${lr_scheduler}
+
+pl_trainer:
+    max_epochs: 6
+    precision: 32
+    gpus: 0
+    gradient_clip_val: 5
+    accumulate_grad_batches: 1  # Accumulate gradient accumulated_gradient * batch_size
+    default_save_path: ${output_dir}
+    fast_dev_run: false
+    overfit_pct: 1.0
+    distributed_backend: 'ddp'
+    checkpoint_callback: true
+    val_check_interval: 1.0
+    weights_summary: 'top'
+    progress_bar_refresh_rate: 1
+    row_log_interval: 10
+    log_save_interval: 50
+    auto_scale_batch_size: false  # 'binsearch'
+    auto_lr_find: false
+    replace_sampler_ddp: true
+    checkpoint_path: ''
+
+callbacks:
+    threshold:
+        target_metric_type: fprs
+        target_metric_value: 0.15  # target FPR
+        stay_under_target_metric: true  # Whether to stay under target FPR
+    early_stop:
+        monitor: 'val_loss'  # Name of metric to monitor: in future (val_loss, val_precision, val_mcc)
+        patience: 5  # How many epochs to wait before stopping training
+        mode: 'min'  # min, max or auto
+    checkpoint:
+        monitor: 'val_loss'  # Name of metric to monitor: in future (val_loss, val_precision, val_mcc)
+        mode: 'min'  # min, max or auto
+        save_top_k: 1  # Top models to keep
+        period: 1  # How many epochs to wait before checking
+        verbose: true
+
+aml:
+    cluster_name: 'ml-train-cluster'
+    docker:
+        shm_size: '2g'  # Default

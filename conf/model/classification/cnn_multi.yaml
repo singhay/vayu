@@ -1,0 +1,16 @@
+model:
+  type: classification
+  name: cnn
+  class: vayu.models.classification.cnn.TextCNNMulti
+  params:
+    cnn_kernel_sizes: [3,4,5]
+    cnn_kernel_numbers: [1000, 1000, 1000]
+
+    embedding_size: 100  # Dimension of word embedding if pretrained is not provided
+    pretrained_vector_path: ''
+    pretrained_vector_fine_tune_learning_rate: .00001
+
+    fc_middle_layers: []
+    fc_dropout: 0.2
+    fc_activation: gelu
+    is_enable_fc_layer_bias: true
