@@ -1,0 +1,1 @@
+This tokenizer is default BERT wordpiece tokenizer
