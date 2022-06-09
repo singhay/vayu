@@ -1,0 +1,44 @@
+{
+  "adaptive": true,
+  "architectures": [
+    "TransfoXLModel"
+  ],
+  "attn_type": 0,
+  "clamp_len": 1000,
+  "cutoffs": [
+    20000,
+    40000,
+    200000
+  ],
+  "d_embed": 4,
+  "d_head": 2,
+  "d_inner": 4,
+  "d_model": 4,
+  "div_val": 4,
+  "dropatt": 0.0,
+  "dropout": 0.1,
+  "eos_token_id": 0,
+  "ext_len": 0,
+  "init": "normal",
+  "init_range": 0.01,
+  "init_std": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "mem_len": 1600,
+  "model_type": "transfo-xl",
+  "n_head": 2,
+  "n_layer": 18,
+  "pre_lnorm": false,
+  "proj_init_std": 0.01,
+  "same_length": true,
+  "sample_softmax": -1,
+  "tgt_len": 128,
+  "tie_projs": [
+    false,
+    true,
+    true,
+    true
+  ],
+  "tie_weight": true,
+  "untie_r": true,
+  "vocab_size": 267735
+}

@@ -1,0 +1,55 @@
+batch_size: 2
+dropout: 0.2
+embedding_size: 5
+epochs: 100
+is_lazy: false
+lowercase: true
+lr_scheduler:
+  params:
+    cooldown: 5
+    factor: 0.05
+    min_lr: 1.0e-05
+    patience: 2
+    verbose: true
+  type: ReduceLROnPlateau
+max_chunk_size: 64
+max_chunks: 200
+model_type: BagOfEmbedding
+normalization_map:
+- <int>: \d{3-10}
+- <longnum>: \d{11+}
+- <float>: '[^.0-9]'
+- <punct>: '[^\w\s]'
+normalize: true
+num_classes: 1
+num_workers: 16
+optimizer_adam_epsilon: 1.0e-08
+optimizer_learning_rate: 0.001
+optimizer_weight_decay: 0.99
+stem: false
+test_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/eval_multi
+tokenizer_class: bpe
+tokenizer_path: /Users/asingh3/workspace/deep-learning/vayu/tokenizer/resources/65k_roberta_bpe
+train_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_train_100.json
+truth_configs:
+  FI_TRUTH_CONFIG:
+  - NLA
+  - NLAY
+  - NLAW
+  - LA
+  - LAY
+  - LAW
+  - NA
+  - NAY
+  - NAW
+  - LNA
+  - LNAW
+  - LNAY
+  - NLFA
+  - NLFAW
+  - NLFAY
+  - LFA
+  - LFAY
+  - LFAW
+  NFI_TRUTH_CONFIG: A
+val_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_valid_100.json

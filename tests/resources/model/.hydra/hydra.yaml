@@ -1,0 +1,129 @@
+hydra:
+  help:
+    app_name: ${hydra.job.name}
+    footer: 'Powered by Hydra (https://hydra.cc)
+
+      Use --hydra-help to view Hydra specific help
+
+      '
+    header: '${hydra.help.app_name} is powered by Hydra.
+
+      '
+    template: '${hydra.help.header}
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (group=option)
+
+
+      $APP_CONFIG_GROUPS
+
+
+      == Config ==
+
+      Override anything in the config (foo.bar=value)
+
+
+      $CONFIG
+
+
+      ${hydra.help.footer}
+
+      '
+  hydra_help:
+    template: 'Hydra (${hydra.runtime.version})
+
+      See https://hydra.cc for more info.
+
+
+      == Flags ==
+
+      $FLAGS_HELP
+
+
+      == Configuration groups ==
+
+      Compose your configuration from those groups (For example, append hydra/job_logging=disabled
+      to command line)
+
+
+      $HYDRA_CONFIG_GROUPS
+
+
+      Use ''--cfg hydra'' to Show the Hydra config.'
+  hydra_logging:
+    disable_existing_loggers: false
+    formatters:
+      simple:
+        format: '[%(asctime)s][HYDRA] %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+    loggers:
+      logging_example:
+        level: DEBUG
+    root:
+      handlers:
+      - console
+      level: INFO
+    version: 1
+  job:
+    config:
+      override_dirname:
+        exclude_keys: []
+        item_sep: ','
+        kv_sep: '='
+    config_file: config.yaml
+    id: ???
+    name: main
+    num: ???
+    override_dirname: data.test_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/eval_multi,data.tokenizer_path=/Users/asingh3/workspace/deep-learning/vayu/tokenizer/resources/65k_roberta_bpe,data.train_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_train_100.json,data.val_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_valid_100.json,do_eval=true,do_train=true,model=classification/boe,pl_trainer.fast_dev_run=true,pl_trainer.gpus=0,training.hparams.batch_size=2
+  job_logging:
+    disable_existing_loggers: false
+    formatters:
+      simple:
+        format: '[%(asctime)s][%(name)s][%(levelname)s] - %(message)s'
+    handlers:
+      console:
+        class: logging.StreamHandler
+        formatter: simple
+        stream: ext://sys.stdout
+      file:
+        class: logging.FileHandler
+        filename: ${hydra.job.name}.log
+        formatter: simple
+    root:
+      handlers:
+      - console
+      - file
+      level: INFO
+    version: 1
+  launcher:
+    class: hydra._internal.core_plugins.basic_launcher.BasicLauncher
+  output_subdir: .hydra
+  overrides:
+    hydra: []
+    task:
+    - model=classification/boe
+    - do_train=true
+    - do_eval=true
+    - pl_trainer.fast_dev_run=true
+    - data.train_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_train_100.json
+    - data.val_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_valid_100.json
+    - data.test_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/eval_multi
+    - data.tokenizer_path=/Users/asingh3/workspace/deep-learning/vayu/tokenizer/resources/65k_roberta_bpe
+    - training.hparams.batch_size=2
+    - pl_trainer.gpus=0
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  runtime:
+    cwd: /Users/asingh3/workspace/deep-learning
+    version: 0.11.3
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}
+  sweeper:
+    class: hydra._internal.core_plugins.basic_sweeper.BasicSweeper
+  verbose: false

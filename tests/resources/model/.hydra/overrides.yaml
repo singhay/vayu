@@ -1,0 +1,10 @@
+- model=classification/boe
+- do_train=true
+- do_eval=true
+- pl_trainer.fast_dev_run=true
+- data.train_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_train_100.json
+- data.val_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_valid_100.json
+- data.test_path=/Users/asingh3/workspace/deep-learning/data/classification/dummy/eval_multi
+- data.tokenizer_path=/Users/asingh3/workspace/deep-learning/vayu/tokenizer/resources/65k_roberta_bpe
+- training.hparams.batch_size=2
+- pl_trainer.gpus=0

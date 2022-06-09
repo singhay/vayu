@@ -1,0 +1,85 @@
+callbacks:
+  checkpoint:
+    mode: min
+    monitor: val_loss
+    period: 1
+    save_top_k: 3
+    verbose: true
+  early_stop:
+    mode: min
+    monitor: val_loss
+    patience: 5
+  threshold:
+    stay_under_target_fpr: true
+    target_fpr: 0.15
+data:
+  is_lazy: false
+  lowercase: true
+  max_chunk_size: 64
+  max_chunks: 200
+  normalization_map:
+  - <int>: \d{3-10}
+  - <longnum>: \d{11+}
+  - <float>: '[^.0-9]'
+  - <punct>: '[^\w\s]'
+  normalize: true
+  num_classes: 1
+  stem: false
+  test_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/eval_multi
+  tokenizer_class: bpe
+  tokenizer_path: /Users/asingh3/workspace/deep-learning/vayu/tokenizer/resources/65k_roberta_bpe
+  train_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_train_100.json
+  val_path: /Users/asingh3/workspace/deep-learning/data/classification/dummy/74177_valid_100.json
+do_eval: true
+do_train: true
+optimizer:
+  type: Adam
+  params:
+    lr: 0.001
+    weight_decay: 0.99
+lr_scheduler:
+  params:
+    cooldown: 5
+    factor: 0.05
+    min_lr: 1.0e-05
+    patience: 2
+    verbose: true
+  type: ReduceLROnPlateau
+model:
+  class: vayu.models.classification.bag_of_embedding.BagOfEmbedding
+  name: boe
+  params:
+    dropout: 0.2
+    embedding_size: 5
+  type: classification
+pl_trainer:
+  accumulate_grad_batches: 16
+  auto_lr_find: false
+  auto_scale_batch_size: false
+  checkpoint_callback: true
+  checkpoint_path: ''
+  default_save_path: ${output_dir}
+  distributed_backend: dp
+  fast_dev_run: true
+  gpus: 0
+  gradient_clip_val: 5
+  log_save_interval: 50
+  overfit_pct: 1.0
+  precision: 32
+  progress_bar_refresh_rate: 1
+  replace_sampler_ddp: true
+  row_log_interval: 10
+  val_check_interval: 1.0
+  weights_summary: top
+pretrained_model_path: ''
+pretty_print: true
+seed: 42
+training:
+  hparams:
+    batch_size: 2
+    epochs: 100
+    lr_scheduler: ${lr_scheduler}
+    num_workers: 16
+    optimizer_adam_epsilon: 1.0e-08
+    optimizer_learning_rate: 0.001
+    optimizer_weight_decay: 0.99
